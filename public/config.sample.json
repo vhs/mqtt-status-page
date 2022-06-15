@@ -1,0 +1,22 @@
+{
+    "title": "MQTT Status Page",
+    "mqttUri": "wss://test.mosquitto.org:8081/mqtt",
+    "mqttTopic": "/test/vhs/spacebus/status/space/mask",
+    "presets": {
+        "mandatory": {
+            "message": "Mandatory",
+            "backgroundColor": "red",
+            "foregroundColor": "white"
+        },
+        "recommended": {
+            "message": "Recommended",
+            "backgroundColor": "orange",
+            "foregroundColor": "black"
+        },
+        "default": {
+            "message": "Unknown status",
+            "backgroundColor": "blue",
+            "foregroundColor": "black"
+        }
+    }
+}
