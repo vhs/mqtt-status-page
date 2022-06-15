@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  spacebus:
+    image: local/mqtt-status-page
+    build: .
+    ports:
+      - "127.0.0.1:2624:80"
