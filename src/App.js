@@ -3,6 +3,7 @@ import { Component } from 'react'
 import MQTT from 'async-mqtt'
 
 import './App.css'
+import { Helmet } from 'react-helmet'
 
 class App extends Component {
   constructor (props) {
@@ -60,15 +61,21 @@ class App extends Component {
     const foregroundColor = preset.foregroundColor ?? this.state.foregroundColor ?? 'red'
     const message = preset.message ?? 'ERROR'
 
+    const maxWordHeight = message.split(' ').length
     const maxWordLength = Math.max(...(message.split(' ').map(el => el.length)))
-    const fontSize = ((18 - maxWordLength) * 0.8) + 'vw'
+    const fontSize = ((18 - maxWordLength) * (1 - (maxWordHeight * 0.1))) + 'vw'
 
     return (
-      <div className="App" style={{ backgroundColor, color: foregroundColor }}>
-        <div className="App-header" style={{ fontSize }}>
-          <h1>{message.toUpperCase()}</h1>
+      <>
+      <Helmet>
+        <title>{this.state.title}</title>
+      </Helmet>
+        <div className="App" style={{ backgroundColor, color: foregroundColor }}>
+          <div className="App-header" style={{ fontSize }}>
+            <h1>{message.toUpperCase()}</h1>
+          </div>
         </div>
-      </div>
+      </>
     )
   }
 }
