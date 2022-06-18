@@ -1,7 +1,8 @@
 {
     "title": "MQTT Status Page",
     "mqttUri": "wss://test.mosquitto.org:8081/mqtt",
-    "mqttTopic": "/test/vhs/spacebus/status/space/mask",
+    "mqttControlTopic": "/test/vhs/spacebus/devices/mask-status-page/control",
+    "mqttStatusTopic": "/test/vhs/spacebus/status/space/mask",
     "presets": {
         "mandatory": {
             "message": "Mandatory",

@@ -34,12 +34,34 @@ class App extends Component {
     mqttClient.on('connect', () => {
       console.log('MQTT connected')
       this.setState({ connectionStatus: true })
-      mqttClient.subscribe(appConfig.mqttTopic ?? '/test/vhs/spacebus/status/space/mask')
+      mqttClient.subscribe(appConfig.mqttControlTopic ?? '/test/vhs/spacebus/devices/mask-status-page/control')
+      mqttClient.subscribe(appConfig.mqttStatusTopic ?? '/test/vhs/spacebus/status/space/mask')
     })
 
     mqttClient.on('message', (topic, payload, packet) => {
-      if (appConfig.mqttTopic === topic) {
+      if (appConfig.mqttStatusTopic === topic) {
         this.setState({ mode: payload.toString() })
+      } else if (appConfig.mqttControlTopic === topic) {
+        const command = payload.toString()
+
+        switch (command) {
+          case 'reset':
+          case 'reload':
+            window.location.reload()
+            break
+          case 'off':
+            this.setState({ mode: 'off' })
+            break
+          case 'on':
+            this.setState({ mode: 'on' })
+            break
+          case 'loading':
+            this.setState({ mode: 'loading' })
+            break
+          default:
+            this.setState({ mode: 'error' })
+            break
+        }
       }
     })
 
