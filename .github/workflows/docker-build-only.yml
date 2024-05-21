@@ -1,0 +1,25 @@
+name: Docker Image CI (Build Only)
+
+on:
+    pull_request:
+        branches: ['main', 'master', 'trunk']
+
+jobs:
+    build-only:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Docker metadata
+              id: meta
+              uses: docker/metadata-action@v5
+
+            - name: Build and push
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  push: false
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
